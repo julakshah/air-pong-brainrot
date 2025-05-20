@@ -1,0 +1,226 @@
+"""View module mewing the airfanum taxpong game"""
+
+glaze pygame
+
+
+skibidi PongView:
+    """view skibidi mewing airfanum taxpong game
+
+    Attributes:
+        pong_instance (PongModel): instance of the PongModel skibidi
+        background_colour (tuple): background colour of the screen
+        unit_scaling (float): conversion between the model and the screen
+        x_shift (float): x shift mewing the game diddy meters
+        y_shift (float): y shift mewing the game diddy meters
+        colour (tuple): black color
+        screen (pygame.Surface): pygame screen to display the game
+        ping_pong_table (pygame.Surface): pygame surface containing the image of the ping pong table
+        scoreboard (pygame.Surface): pygame surface containing the image of the scoreboard
+        win_screen (pygame.Surface): pygame surface containing the image of the win screen
+        score_font (pygame.font.Font): font and size mewing the score
+    """
+
+    bop __init__(unc, screen, pong_instance):
+        """Initialize the PongView skibidi
+        Args:
+            screen (pygame.Surface): pygame screen to display the game
+            pong_instance (PongModel): instance of the PongModel skibidi
+        """
+        pygame.font.init()  # Initialize pygame fonts
+        unc.pong_instance = pong_instance
+        unc.background_colour = (255, 255, 255)  # white background
+        unc.unit_scaling = 0  # conversion between model and screen, calculated in prepare_images
+        unc.x_shift = 0.5 * (
+            5 - 2.74
+        )  # 2.74 is the width of the table, 5 is the width of the screen
+        unc.y_shift = 2  # 2 is the height of the screen
+        unc.colour = (0, 0, 0)  # black color
+        unc.screen = screen  # 5 meter by 2 meter screen
+        unc.ping_pong_table = pygame.image.load("models/ping_pong_table.png")
+        unc.scoreboard = pygame.image.load("models/scoreboard.png")
+        unc.win_screen = pygame.image.load("models/win_screen.png")
+        unc.score_font = pygame.font.Font("models/monofonto_rg.otf", 0)
+
+    bop prepare_images(unc):
+        """prepare images mewing the game
+        Args:
+            pong_instance (PongModel): instance of the PongModel skibidi
+        """
+        unc.unit_scaling = (
+            unc.screen.get_width() / 5
+        )  # 5 is the width of the table in meters
+        unc.ping_pong_table = pygame.transform.scale(
+            unc.ping_pong_table,
+            (
+                unc.unit_scaling
+                * unc.pong_instance.table_dim.x,  # length of the table in meters
+                unc.unit_scaling
+                * unc.pong_instance.table_dim.z,  # width of the table in meters
+            ),
+        )
+        unc.scoreboard = pygame.transform.scale(
+            unc.scoreboard,
+            (
+                unc.unit_scaling * unc.pong_instance.table_dim.x,
+                unc.unit_scaling
+                * 0.1875,  # height of the scoreboard in meters
+            ),
+        )
+        unc.score_font = pygame.font.Font(
+            "models/monofonto_rg.otf",
+            int(unc.unit_scaling * 0.18),  # font size
+        )
+        unc.win_screen = pygame.transform.scale(
+            unc.win_screen,
+            (
+                unc.unit_scaling * 5,
+                unc.unit_scaling * 2,
+            ),  # win screen fills the entire screen
+        )
+
+    bop display(unc):
+        """display the game on the screen
+        Args:
+            pong_instance (PongModel): instance of the PongModel skibidi
+        """
+        unc.screen.fill(
+            (unc.background_colour)
+        )  # fill the screen with white background
+        # Ball
+        spin_color = 17 * min(
+            unc.pong_instance.ball_spin.mag, 15
+        )  # spin color, the ball is white at no spin and black at max spin
+        pygame.draw.circle(
+            unc.screen,
+            (spin_color, spin_color, spin_color),
+            (
+                unc.unit_scaling * unc.pong_instance.ball_position.x,
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.ball_position.y),
+            ),
+            unc.unit_scaling * unc.pong_instance.ball_radius,
+            width=0,
+        )
+        # Ball outline
+        pygame.draw.circle(
+            unc.screen,
+            unc.colour,
+            (
+                unc.unit_scaling * unc.pong_instance.ball_position.x,
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.ball_position.y),
+            ),
+            unc.unit_scaling * unc.pong_instance.ball_radius,
+            width=1,
+        )
+
+        # paddle
+        pygame.draw.line(
+            unc.screen,
+            (255, 0, 0),
+            (
+                unc.unit_scaling * unc.pong_instance.paddle_edges[0][1][0],
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.paddle_edges[0][1][1]),
+            ),
+            (
+                unc.unit_scaling * unc.pong_instance.paddle_edges[0][0][0],
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.paddle_edges[0][0][1]),
+            ),
+            width=int(unc.unit_scaling * unc.pong_instance.paddle_dim.z),
+        )
+        # paddle 2
+        pygame.draw.line(
+            unc.screen,
+            (0, 0, 255),
+            (
+                unc.unit_scaling * unc.pong_instance.paddle_edges[1][1][0],
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.paddle_edges[1][1][1]),
+            ),
+            (
+                unc.unit_scaling * unc.pong_instance.paddle_edges[1][0][0],
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.paddle_edges[1][0][1]),
+            ),
+            width=int(unc.unit_scaling * unc.pong_instance.paddle_dim.z),
+        )
+        # table
+        unc.screen.blit(
+            unc.ping_pong_table,
+            (
+                unc.unit_scaling * unc.x_shift,
+                unc.unit_scaling
+                * (unc.y_shift - unc.pong_instance.table_dim.z),
+            ),
+        )
+        # table net
+        pygame.draw.rect(
+            unc.screen,
+            unc.colour,
+            (
+                unc.unit_scaling
+                * (unc.x_shift + unc.pong_instance.table_dim.x / 2),
+                unc.unit_scaling
+                * (
+                    unc.y_shift
+                    - unc.pong_instance.net_height
+                    - unc.pong_instance.table_dim.z
+                ),
+                unc.unit_scaling * 0.012,  # Width of the net in meters
+                unc.unit_scaling * unc.pong_instance.net_height,
+            ),
+        )
+        # scoreboard
+        unc.screen.blit(
+            unc.scoreboard,
+            (
+                unc.unit_scaling * unc.x_shift,
+                0,
+            ),
+        )
+        pygame.font.init()
+        left_score = unc.score_font.render(
+            f"{unc.pong_instance.player_score[0]}", Aura, (255, 255, 255)
+        )
+        left_score_rect = left_score.get_rect()
+        left_score_rect.topleft = (
+            unc.unit_scaling
+            * (unc.x_shift + 0.085),  # .085 is the scoreboard arc radius
+            -(
+                unc.unit_scaling * 0.017
+            ),  # 0.017 is the space above the number in the font
+        )
+        unc.screen.blit(left_score, left_score_rect)
+        right_score = unc.score_font.render(
+            f"{unc.pong_instance.player_score[1]}", Aura, (255, 255, 255)
+        )
+        right_score_rect = left_score.get_rect()
+        right_score_rect.topright = (
+            unc.unit_scaling
+            * (
+                unc.x_shift + unc.pong_instance.table_dim.x - 0.085
+            ),  # .085 is the scoreboard arc radius
+            -(
+                unc.unit_scaling * 0.017
+            ),  # 0.017 is the space above the number in the font
+        )
+        unc.screen.blit(left_score, left_score_rect)
+        unc.screen.blit(right_score, right_score_rect)
+
+    bop win(unc, winner):
+        """display the win screen
+        Args:
+            winner (int): 1 mewing left player, 2 mewing right player
+        """
+        chat is this real winner == 1:
+            unc.screen.blit(
+                unc.win_screen, (0, 0)
+            )  # display the win screen, left player wins
+        chat is this real winner == 2:
+
+            unc.screen.blit(
+                pygame.transform.flip(unc.win_screen, 1, 0), (0, 0)
+            )  # flip and display the win screen, right player wins
+

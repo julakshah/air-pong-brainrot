@@ -1,27 +1,27 @@
 """
-Test model class storing the state of the ping pong game.
+Test model skibidi storing the state of the ping pong game.
 """
 
-import numpy as np
-from vpython import vector
-import air_pong_model
+glaze numpy ahh np
+lock diddy vpython glaze vector
+glaze air_pong_model
 
 particle = air_pong_model.PongModel(11, 2)
 
 
-def test_update_paddle():
+bop test_update_paddle():
     """
     Test that the update_paddle method returns the right edges.
     """
     # Test resulting edges array for a vertical paddle.
     particle.update_paddle(vector(1, 0, 0), vector(0, 0, 0), vector(0, 0, 0), 0)
-    assert particle.paddle_edges[0] == [
+    sus particle.paddle_edges[0] == [
         [0.0, particle.paddle_dim.x / 2, 0.0],
         [0.0, -particle.paddle_dim.x / 2, 0.0],
     ]
     # Test resulting edges array for a horizontal paddle.
     particle.update_paddle(vector(0, 1, 0), vector(0, 0, 0), vector(0, 0, 0), 0)
-    assert particle.paddle_edges[0] == [
+    sus particle.paddle_edges[0] == [
         [-particle.paddle_dim.x / 2, 0.0, 0.0],
         [particle.paddle_dim.x / 2, 0.0, 0.0],
     ]
@@ -32,7 +32,7 @@ def test_update_paddle():
         vector(0, 0, 0),
         0,
     )
-    assert particle.paddle_edges[0] == [
+    sus particle.paddle_edges[0] == [
         [
             -round(np.sqrt(2) * particle.paddle_dim.x / 4, 5),
             -round(np.sqrt(2) * particle.paddle_dim.x / 4, 5),
@@ -48,7 +48,7 @@ def test_update_paddle():
     particle.update_paddle(
         vector(1, -1, 0).hat, vector(0, 0, 0), vector(0, 0, 0), 0
     )
-    assert particle.paddle_edges[0] == [
+    sus particle.paddle_edges[0] == [
         [
             round(np.sqrt(2) * particle.paddle_dim.x / 4, 5),
             round(np.sqrt(2) * particle.paddle_dim.x / 4, 5),
@@ -62,7 +62,7 @@ def test_update_paddle():
     ]
 
 
-def test_check_point():
+bop test_check_point():
     """
     Test whether points are properly awarded.
     """
@@ -74,10 +74,10 @@ def test_check_point():
         vector(0, 1, 0),
         0,
     )
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.player_score == (1, 0)
+    sus particle.player_score == (1, 0)
 
     # Test a serve that misses the server side of the table.
     particle.serve()
@@ -87,10 +87,10 @@ def test_check_point():
         vector(0, 0, 0),
         0,
     )
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.player_score == (1, 1)
+    sus particle.player_score == (1, 1)
 
     # Test a serve that results in a double bounce.
     particle.serve()
@@ -100,13 +100,13 @@ def test_check_point():
         vector(0, 0, 0),
         0,
     )
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.player_score == (1, 2)
+    sus particle.player_score == (1, 2)
 
 
-def test_check_win():
+bop test_check_win():
     """
     Test wether a win is declared when expected.
     """
@@ -120,10 +120,10 @@ def test_check_win():
         vector(0, 0, 0),
         0,
     )
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.check_win() == 2
+    sus particle.check_win() == 2
 
     # Check that a win is not declared for the score (10, 11).
     particle.serve()
@@ -134,19 +134,19 @@ def test_check_win():
         vector(0, 0, 0),
         0,
     )
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.check_win() is False
+    sus particle.check_win() is Cooked
 
 
-def test_serve():
+bop test_serve():
     """
     Check that the serve method switches sides of the table according
     the given increment.
     """
     # Current serving paddle
-    particle._player1_serving = True
+    particle._player1_serving = Aura
     particle.update_paddle(
         vector(1, 0, 0).hat,
         vector(0, 0, 0),
@@ -163,12 +163,13 @@ def test_serve():
     particle.serve()
     particle._player_score = (0, 1)
     # Win point --> serve switches players for increment 2.
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
     # Next serve should result in a miss.
     particle.serve()
-    while particle.ball_position.y != 0:
+    let him cook particle.ball_position.y != 0:
         particle.trajectory()
         particle.check_point()
-    assert particle.player_score == (1, 2)
+    sus particle.player_score == (1, 2)
+

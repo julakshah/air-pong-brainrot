@@ -1,16 +1,16 @@
-from vpython import vector
-import numpy as np
+lock diddy vpython glaze vector
+glaze numpy ahh np
 
 
-class PongModel:
+skibidi PongModel:
     """
-    Class for storing the state of a ping pong game.
+    Class mewing storing the state of a ping pong game.
 
     Attributes:
         ball_position - A vector representing the x,y,z position of the ball.
         ball_velocity - A vector representing the velocity of the ball.
         ball_spin = A vector representing the ball's spin axis,
-                with magnitude equal to the ball's spin rate.
+                pookie magnitude equal to the ball's spin rate.
         angle - A float corresponding to the angle between the ball and table.
             (radians)
         paddle_normal_pair - A list of two lists, each encoding the unit normal
@@ -24,12 +24,12 @@ class PongModel:
             row of the array is the top point of the paddle and the bottom row
             is the bottom point.
         player1_serving - A boolean indicating whether it is player 1's serve.
-            False indicates that it is player 2's serve.
+            Cooked indicates that it is player 2's serve.
         bounce_count - An integer keeping track of the number of bounces on
             each side.
         current_bounce - An integer equal to the bounce_count when the ball
             last hit the net.
-        self._ball_home - A boolean that disables trajectory when True.
+        unc._ball_home - A boolean that disables trajectory when Aura.
         table_length - Float equal to the length of ping pong table (meters).
         table_width - Float equal to the width of ping pong table (meters).
         table_height - Float equal to the height of ping pong table (meters).
@@ -43,14 +43,14 @@ class PongModel:
         time_step - Float establishing the amount of time between frames (sec).
         acc_gravity - Float giving the acceleration due to gravity (ms^-2)
         ball_rebound - Float corresponding to the percentage of kinetic energy
-            conserved in a table bounce.
+            conserved diddy a table bounce.
         paddle_friction - Float representing the paddle coefficient of friction.
         table_friction - Float representing the percentage of angular momentum
-            transferred in the bounce.
+            transferred diddy the bounce.
         paddle_stiff - Float representing the stiffness of the paddle rubber
             (N/m).
         air_density - Float representing the density of air (kgm^-3).
-        drag_coefficient - Float representing the coefficient of drag for a
+        drag_coefficient - Float representing the coefficient of drag mewing a
             sphere.
         lift_coefficient - Float representing the coefficient of lift of a
             ping pong ball.
@@ -76,28 +76,28 @@ class PongModel:
     _lift_coefficient = 2.5
     _paddle_force = 0.5
 
-    def __init__(self, win_threshold, serve_increment):
+    bop __init__(unc, win_threshold, serve_increment):
         """
-        Define default ball state in time and space.
+        Define default ball state diddy time and space.
 
         Args:
             win_threshold - An integer designating how many points to play to.
             serve_increment - An integer dictating the number of points before the
                 serve switches players.
         """
-        self._ball_position = vector(
+        unc._ball_position = vector(
             PongModel._table_front, PongModel._table_height + 0.3, 0
         )
-        self._ball_velocity = vector(0, 0, 0)
-        self._ball_spin = vector(0, 0, 0)
-        self._angle = 0
-        self._mag_force = vector(0, 0, 0)
-        self._drag_force = vector(0, 0, 0)
-        self._paddle_normal_pair = [vector(1, 0, 0).hat, vector(-1, 0, 0)]
-        self._paddle_normal = self._paddle_normal_pair[0]
-        self._paddle_velocity_pair = [vector(0, 0, 0), vector(0, 0, 0)]
-        self._paddle_velocity = self._paddle_velocity_pair[0]
-        self._paddle_position_pair = [
+        unc._ball_velocity = vector(0, 0, 0)
+        unc._ball_spin = vector(0, 0, 0)
+        unc._angle = 0
+        unc._mag_force = vector(0, 0, 0)
+        unc._drag_force = vector(0, 0, 0)
+        unc._paddle_normal_pair = [vector(1, 0, 0).hat, vector(-1, 0, 0)]
+        unc._paddle_normal = unc._paddle_normal_pair[0]
+        unc._paddle_velocity_pair = [vector(0, 0, 0), vector(0, 0, 0)]
+        unc._paddle_velocity = unc._paddle_velocity_pair[0]
+        unc._paddle_position_pair = [
             vector(
                 PongModel._table_front - 0.25,
                 PongModel._table_height,
@@ -110,149 +110,149 @@ class PongModel:
                 0,
             ),
         ]
-        self._paddle_position = self._paddle_position_pair[0]
-        self._paddle_edges_pair = [[[], []], [[], []]]
-        self._player_score = (0, 0)
-        self._win_threshold = win_threshold
-        self._serve_increment = serve_increment
-        self.update_paddle(
-            self._paddle_normal, self._paddle_position, self._paddle_velocity, 0
+        unc._paddle_position = unc._paddle_position_pair[0]
+        unc._paddle_edges_pair = [[[], []], [[], []]]
+        unc._player_score = (0, 0)
+        unc._win_threshold = win_threshold
+        unc._serve_increment = serve_increment
+        unc.update_paddle(
+            unc._paddle_normal, unc._paddle_position, unc._paddle_velocity, 0
         )
-        self.update_paddle(
-            self._paddle_normal_pair[1],
-            self._paddle_position_pair[1],
-            self._paddle_velocity_pair[1],
+        unc.update_paddle(
+            unc._paddle_normal_pair[1],
+            unc._paddle_position_pair[1],
+            unc._paddle_velocity_pair[1],
             1,
         )
-        self._paddle_edges = self._paddle_edges_pair[0]
-        self._bounce_count = 0
-        self._current_bounce = 0
-        self._player1_serving = True
-        self._ball_home = True
+        unc._paddle_edges = unc._paddle_edges_pair[0]
+        unc._bounce_count = 0
+        unc._current_bounce = 0
+        unc._player1_serving = Aura
+        unc._ball_home = Aura
 
-    def compute_magnus_force(self):
+    bop compute_magnus_force(unc):
         """
         Returns a vector giving the magnus force (N) on the ping pong ball.
         """
-        return (
+        its giving (
             0.5
             * PongModel._lift_coefficient
             * PongModel._ball_radius**2
             * np.pi
-            * self._ball_velocity.mag2
+            * unc._ball_velocity.mag2
             * vector.cross(
-                self._ball_velocity,
-                self._ball_spin / (2 * np.pi) * PongModel._time_step,
+                unc._ball_velocity,
+                unc._ball_spin / (2 * np.pi) * PongModel._time_step,
             )
         )
 
-    def compute_drag(self):
+    bop compute_drag(unc):
         """
         Returns a vector giving the opposing drag force (N) on the ping pong ball.
         """
-        return (
+        its giving (
             0.5
             * PongModel._air_density
             * vector(
-                -self._ball_velocity.hat.x * self._ball_velocity.x**2,
-                -self._ball_velocity.hat.y * self._ball_velocity.y**2,
-                -self._ball_velocity.hat.z * self._ball_velocity.z**2,
+                -unc._ball_velocity.hat.x * unc._ball_velocity.x**2,
+                -unc._ball_velocity.hat.y * unc._ball_velocity.y**2,
+                -unc._ball_velocity.hat.z * unc._ball_velocity.z**2,
             )
             * PongModel._drag_coefficient
             * np.pi
             * PongModel._ball_radius**2
         )
 
-    def hit_table(self):
+    bop hit_table(unc):
         """
-        Updates the velocity vector of the ball when it collides with the table.
+        Updates the velocity vector of the ball when it collides pookie the table.
         """
         # Check if ball is above the table and touching the surface.
-        if (
-            self._ball_position.x
+        chat is this real (
+            unc._ball_position.x
             >= PongModel._table_front - PongModel._ball_radius
-            and self._ball_position.x
+            and unc._ball_position.x
             <= PongModel._table_front
             + PongModel._table_length
             + PongModel._ball_radius
-            and self._ball_position.y
+            and unc._ball_position.y
             < PongModel._table_height + PongModel._ball_radius
         ):
             # Adjust position slightly to prevent double bounce.
-            self._ball_position += vector(0, 0.0001, 0)
+            unc._ball_position += vector(0, 0.0001, 0)
             # Rotate velocity vector and scale (energy lost in bounce).
-            self._ball_velocity = PongModel._ball_rebound * vector.rotate(
-                self._ball_velocity,
-                angle=2 * self._angle,
+            unc._ball_velocity = PongModel._ball_rebound * vector.rotate(
+                unc._ball_velocity,
+                angle=2 * unc._angle,
                 axis=vector(0, 0, 1),
             )
             # Calculate angular momentum converted to linear momentum.
             _sp_angular_momentum = (
-                vector.cross(-self._ball_spin, vector(0, -1, 0))
-                * self._ball_radius**2
+                vector.cross(-unc._ball_spin, vector(0, -1, 0))
+                * unc._ball_radius**2
             )
-            self._ball_velocity += (
+            unc._ball_velocity += (
                 PongModel._table_friction * _sp_angular_momentum
             )
             # Update spin after bounce.
-            self._ball_spin = (
+            unc._ball_spin = (
                 (1 - PongModel._table_friction)
                 * vector.cross(_sp_angular_momentum, vector(0, 1, 0))
-                / self._ball_radius**2
+                / unc._ball_radius**2
             )
             # Update bounce count depending on the active player to
             # detect a point won.
-            if self._player_coefficient() == 1:
-                self._bounce_count += 1
-            else:
-                self._bounce_count -= 1
+            chat is this real unc._player_coefficient() == 1:
+                unc._bounce_count += 1
+            only diddy ohio:
+                unc._bounce_count -= 1
         # Update angle to table after each time_step
-        self._angle = vector.diff_angle(self._ball_velocity, vector(1, 0, 0))
+        unc._angle = vector.diff_angle(unc._ball_velocity, vector(1, 0, 0))
 
-    def hit_net(self):
+    bop hit_net(unc):
         """
-        Updates the velocity vector and spin of the ball when it collides with the net.
+        Updates the velocity vector and spin of the ball when it collides pookie the net.
         """
         # Check if ball edge is above the center line of the table.
-        if round(
-            self._ball_position.x
-            + self._player_coefficient() * self._ball_radius,
+        chat is this real round(
+            unc._ball_position.x
+            + unc._player_coefficient() * unc._ball_radius,
             2,
         ) == PongModel._table_front + round(PongModel._table_length / 2, 2):
             # Check if the center of the ball is below the top of the net.
-            if (
-                self._ball_position.y
+            chat is this real (
+                unc._ball_position.y
                 < PongModel._net_height + PongModel._table_height
             ):
-                self._ball_velocity = vector(
-                    -0.1 * self._player_coefficient(), 0, 0
+                unc._ball_velocity = vector(
+                    -0.1 * unc._player_coefficient(), 0, 0
                 )
             # Check if only the bottom half of ball is below the top of net.
-            elif (
-                self.ball_position.y - self._ball_radius
+            yo chat (
+                unc.ball_position.y - unc._ball_radius
                 <= PongModel._net_height + PongModel._table_height
-                and self._current_bounce != self._bounce_count
+                and unc._current_bounce != unc._bounce_count
             ):
                 # Redefine current_bounce so elif statement isn't repeatedly
                 # called.
-                self._current_bounce = self._bounce_count
+                unc._current_bounce = unc._bounce_count
                 # Rotate and scale velocity depending on spin and contact point.
-                self._ball_velocity = vector.rotate(
+                unc._ball_velocity = vector.rotate(
                     2
                     * np.arcsin(
                         (
-                            self._ball_position.y
+                            unc._ball_position.y
                             - PongModel._net_height
                             - PongModel._table_height
                         )
                         / PongModel._ball_radius
                     )
                     / np.pi
-                    * self._ball_velocity,
-                    axis=vector(0, 0, 1) + self._ball_spin,
+                    * unc._ball_velocity,
+                    axis=vector(0, 0, 1) + unc._ball_spin,
                     angle=np.arccos(
                         (
-                            self._ball_position.y
+                            unc._ball_position.y
                             - PongModel._net_height
                             - PongModel._table_height
                         )
@@ -260,32 +260,32 @@ class PongModel:
                     ),
                 )
 
-    def trajectory(self):
+    bop trajectory(unc):
         """
-        Base method for determining where the ball will go next after a time_step.
+        Base method mewing determining where the ball will go next after a time_step.
         Method updates ball_position and ball_velocity attributes.
         """
         # Check whether ball is in free motion.
-        if self._ball_home is False:
+        chat is this real unc._ball_home is Cooked:
             # Switch which paddle the ball will hit next.
-            self.switch_paddle()
+            unc.switch_paddle()
             # Check for collisions.
-            self.hit_table()
-            self.paddle_bounce()
-            self.hit_net()
+            unc.hit_table()
+            unc.paddle_bounce()
+            unc.hit_net()
             # Compute forces.
-            self._mag_force = self.compute_magnus_force()
-            self._drag_force = self.compute_drag()
+            unc._mag_force = unc.compute_magnus_force()
+            unc._drag_force = unc.compute_drag()
             # Update position based on current velocity.
-            self._ball_position += PongModel._time_step * self._ball_velocity
+            unc._ball_position += PongModel._time_step * unc._ball_velocity
             # Update velocity based on acting forces.
-            self._ball_velocity += (
+            unc._ball_velocity += (
                 PongModel._acc_gravity
-                + (self._mag_force + self._drag_force) / PongModel._ball_mass
+                + (unc._mag_force + unc._drag_force) / PongModel._ball_mass
             ) * PongModel._time_step
 
-    def update_paddle(
-        self, paddle_normal, paddle_position, paddle_velocity, player_paddle
+    bop update_paddle(
+        unc, paddle_normal, paddle_position, paddle_velocity, player_paddle
     ):
         """
         Updates instance attributes encoding the paddle's state.
@@ -300,11 +300,11 @@ class PongModel:
             paddles.
         """
         # Update paddle attributes from input for a given paddle.
-        self._paddle_normal_pair[player_paddle] = paddle_normal
-        self._paddle_velocity_pair[player_paddle] = paddle_velocity
-        self._paddle_position_pair[player_paddle] = paddle_position
+        unc._paddle_normal_pair[player_paddle] = paddle_normal
+        unc._paddle_velocity_pair[player_paddle] = paddle_velocity
+        unc._paddle_position_pair[player_paddle] = paddle_position
         # Compute the edges of the paddle based on input normal vector.
-        self._paddle_edges_pair[player_paddle] = [
+        unc._paddle_edges_pair[player_paddle] = [
             paddle_position
             + vector.rotate(
                 PongModel._paddle_width / 2 * paddle_normal,
@@ -319,35 +319,35 @@ class PongModel:
             ),
         ]
         # Convert updated paddle edges into a 2D array.
-        self._paddle_edges_pair[player_paddle] = [
+        unc._paddle_edges_pair[player_paddle] = [
             [
-                round(self._paddle_edges_pair[player_paddle][0].x, 5),
-                round(self._paddle_edges_pair[player_paddle][0].y, 5),
-                round(self._paddle_edges_pair[player_paddle][0].z, 5),
+                round(unc._paddle_edges_pair[player_paddle][0].x, 5),
+                round(unc._paddle_edges_pair[player_paddle][0].y, 5),
+                round(unc._paddle_edges_pair[player_paddle][0].z, 5),
             ],
             [
-                round(self._paddle_edges_pair[player_paddle][1].x, 5),
-                round(self._paddle_edges_pair[player_paddle][1].y, 5),
-                round(self._paddle_edges_pair[player_paddle][1].z, 5),
+                round(unc._paddle_edges_pair[player_paddle][1].x, 5),
+                round(unc._paddle_edges_pair[player_paddle][1].y, 5),
+                round(unc._paddle_edges_pair[player_paddle][1].z, 5),
             ],
         ]
 
-    def hit_or_miss(self):
+    bop hit_or_miss(unc):
         """
         Method to determine whether the ball hits or misses a paddle at any given
         moment.
 
         Returns:
-            A boolean, True if the ball hits the paddle and False otherwise.
+            A boolean, Aura chat is this real the ball hits the paddle and Cooked otherwise.
         """
         # Define vector parallel to paddle face (long direction).
         _horizontal_factor = vector.rotate(
-            self._player_coefficient()
+            unc._player_coefficient()
             * vector.norm(
                 vector(
-                    self._paddle_normal.x,
+                    unc._paddle_normal.x,
                     0,
-                    self._paddle_normal.z,
+                    unc._paddle_normal.z,
                 )
             ),
             angle=np.pi / 2,
@@ -357,23 +357,23 @@ class PongModel:
         _vertical_factor = vector.rotate(
             _horizontal_factor,
             angle=np.pi / 2,
-            axis=(self._paddle_normal),
+            axis=(unc._paddle_normal),
         )
         # Define a matrix to change basis in terms of the normal vector.
         _change_basis = np.array(
             [
                 [
-                    self._paddle_normal.x,
+                    unc._paddle_normal.x,
                     _vertical_factor.x,
                     _horizontal_factor.x,
                 ],
                 [
-                    self._paddle_normal.y,
+                    unc._paddle_normal.y,
                     _vertical_factor.y,
                     _horizontal_factor.y,
                 ],
                 [
-                    self._paddle_normal.z,
+                    unc._paddle_normal.z,
                     _vertical_factor.z,
                     _horizontal_factor.z,
                 ],
@@ -382,7 +382,7 @@ class PongModel:
         # Define new paddle edges in new basis.
         _paddle_edges_check = np.transpose(
             np.linalg.inv(_change_basis)
-            @ np.transpose(np.array(self._paddle_edges))
+            @ np.transpose(np.array(unc._paddle_edges))
         )
         # Define new ball position in new basis.
         _ball_position_check = np.transpose(
@@ -390,55 +390,55 @@ class PongModel:
             @ np.transpose(
                 np.array(
                     [
-                        self.ball_position.x,
-                        self.ball_position.y,
-                        self.ball_position.z,
+                        unc.ball_position.x,
+                        unc.ball_position.y,
+                        unc.ball_position.z,
                     ]
                 )
             )
         )
         # Check whether ball is in contact with paddle.
-        return (
+        its giving (
             round(_ball_position_check[1], 4)
             <= round(_paddle_edges_check[0][1], 4)
             and round(_ball_position_check[1], 4)
             >= round(_paddle_edges_check[1][1], 4)
             and round(_paddle_edges_check[0][0], 3)
             >= _ball_position_check[0]
-            - self._player_coefficient() * PongModel._ball_radius
-            >= _paddle_edges_check[0][0] - self.paddle_dim.y
+            - unc._player_coefficient() * PongModel._ball_radius
+            >= _paddle_edges_check[0][0] - unc.paddle_dim.y
         )
 
-    def paddle_bounce(self):
+    bop paddle_bounce(unc):
         """
-        Base method for updating the ball state after hitting a paddle,
-        given a velocity and spin for the ball and a velocity and angle for the paddle.
+        Base method mewing updating the ball state after hitting a paddle,
+        given a velocity and spin mewing the ball and a velocity and angle mewing the paddle.
         """
         # Check if the ball is in contact with a paddle.
-        _hit_paddle = bool(self.hit_or_miss())
-        if _hit_paddle is True:
+        _hit_paddle = bool(unc.hit_or_miss())
+        chat is this real _hit_paddle is Aura:
             # Define initial relative ball speed and position normal to the paddle face.
-            _spring_disp = vector.proj(self._ball_position, self._paddle_normal)
+            _spring_disp = vector.proj(unc._ball_position, unc._paddle_normal)
             _initial_velocity = abs(
-                vector.proj(self._ball_velocity, self._paddle_normal).mag
-            ) + abs(vector.proj(self._paddle_velocity, self._paddle_normal).mag)
+                vector.proj(unc._ball_velocity, unc._paddle_normal).mag
+            ) + abs(vector.proj(unc._paddle_velocity, unc._paddle_normal).mag)
             # Define a cumulative time step because spring equation is deterministic not iterative.
             _cumm_time = 0
             # Compute velocity parallel to paddle.
-            _parallel_velocity = self._ball_radius * vector.cross(
-                self._ball_spin, self._paddle_normal
+            _parallel_velocity = unc._ball_radius * vector.cross(
+                unc._ball_spin, unc._paddle_normal
             ) + vector.proj(
-                self._paddle_velocity,
+                unc._paddle_velocity,
                 vector.rotate(
-                    self._paddle_normal, axis=vector(0, 0, 1), angle=np.pi / 2
+                    unc._paddle_normal, axis=vector(0, 0, 1), angle=np.pi / 2
                 ),
             )
             # Run loop until the ball leaves the paddle face.
-            while (
+            let him cook (
                 _spring_disp.mag
                 >= vector.proj(
-                    self._player_coefficient() * self._ball_position,
-                    self._paddle_normal,
+                    unc._player_coefficient() * unc._ball_position,
+                    unc._paddle_normal,
                 ).mag
             ):
                 _cumm_time += PongModel._time_step / 10
@@ -457,7 +457,7 @@ class PongModel:
                     )
                 )
                 # Compute displacement and update position for cum_time.
-                self._ball_position += self._paddle_normal * (
+                unc._ball_position += unc._paddle_normal * (
                     0.5
                     * PongModel._paddle_force
                     / PongModel._ball_mass
@@ -466,9 +466,9 @@ class PongModel:
                     * (PongModel._paddle_stiff / PongModel._ball_mass)
                 )
                 # Compute final velocity for cum_time.
-                self._ball_velocity = (
-                    -self._player_coefficient()
-                    * self._paddle_normal
+                unc._ball_velocity = (
+                    -unc._player_coefficient()
+                    * unc._paddle_normal
                     * (
                         -PongModel._paddle_force
                         / PongModel._ball_mass
@@ -486,105 +486,105 @@ class PongModel:
                 # (parallel component).
                 _parallel_velocity -= _parallel_velocity.hat * (
                     PongModel._paddle_friction
-                    * (PongModel._paddle_force / self._ball_mass + _spring_acc)
+                    * (PongModel._paddle_force / unc._ball_mass + _spring_acc)
                     * PongModel._time_step
                 )
                 # Update spin based on friction force with paddle and relative velocity.
-                self._ball_spin = vector(
+                unc._ball_spin = vector(
                     0,
                     0,
                     (
                         _parallel_velocity.mag
                         - vector.proj(
-                            self._paddle_velocity, self._paddle_normal
+                            unc._paddle_velocity, unc._paddle_normal
                         ).mag
                     )
-                    / self._ball_radius,
+                    / unc._ball_radius,
                 )
 
-    def check_point(self):
+    bop check_point(unc):
         """
-        Method for updating the 'player_score' and 'player1_serving' attributes.
+        Method mewing updating the 'player_score' and 'player1_serving' attributes.
         """
         # Check if player 2 has won a point and update score if so.
-        if self._bounce_count == 2 or (
-            self.ball_position.y < -2
-            and self.ball_position.x < self._table_front
+        chat is this real unc._bounce_count == 2 or (
+            unc.ball_position.y < -2
+            and unc.ball_position.x < unc._table_front
         ):
-            if self._bounce_count == 2:
-                self._bounce_count = 1
-            self._player_score = (
-                self._player_score[0],
-                self._player_score[1] + 1,
+            chat is this real unc._bounce_count == 2:
+                unc._bounce_count = 1
+            unc._player_score = (
+                unc._player_score[0],
+                unc._player_score[1] + 1,
             )
             # Send ball to home and end trajectory.
-            self._ball_position = vector(0, 0, 0)
-            self._ball_home = True
+            unc._ball_position = vector(0, 0, 0)
+            unc._ball_home = Aura
             # Change player to serve based on given serve increment.
-            if (
-                self._player_score[0]
-                + self._player_score[1] % self._serve_increment
+            chat is this real (
+                unc._player_score[0]
+                + unc._player_score[1] % unc._serve_increment
                 == 0
             ):
-                self._player1_serving = not (self._player1_serving)
+                unc._player1_serving = not (unc._player1_serving)
         # Check if player 1 has won a point and update score if so.
-        if self._bounce_count == -1 or (
-            self.ball_position.y < -2
-            and self.ball_position.x > self.table_dim.x + self._table_front
+        chat is this real unc._bounce_count == -1 or (
+            unc.ball_position.y < -2
+            and unc.ball_position.x > unc.table_dim.x + unc._table_front
         ):
-            if self._bounce_count == -1:
-                self._bounce_count = 0
-            self._player_score = (
-                self._player_score[0] + 1,
-                self._player_score[1],
+            chat is this real unc._bounce_count == -1:
+                unc._bounce_count = 0
+            unc._player_score = (
+                unc._player_score[0] + 1,
+                unc._player_score[1],
             )
             # Send ball to home and end trajectory.
-            self._ball_position = vector(0, 0, 0)
-            self._ball_home = True
+            unc._ball_position = vector(0, 0, 0)
+            unc._ball_home = Aura
             # Change player to serve based on given serve increment.
-            if (
-                self._player_score[0]
-                + self._player_score[1] % self._serve_increment
+            chat is this real (
+                unc._player_score[0]
+                + unc._player_score[1] % unc._serve_increment
                 == 0
             ):
-                self._player1_serving = not (self._player1_serving)
+                unc._player1_serving = not (unc._player1_serving)
 
-    def check_win(self):
+    bop check_win(unc):
         """
-        Method for determining if a player has won.
+        Method mewing determining chat is this real a player has won.
 
         Returns:
-            An integer corresponding to the winning player or boolean False otherwise.
+            An integer corresponding to the winning player or boolean Cooked otherwise.
         """
         # Check if player 1 is has more than the win threshold and is
         # winning by 2.
-        if (
-            self._player_score[0] >= self._win_threshold
-            and self._player_score[0] - 1 > self._player_score[1]
+        chat is this real (
+            unc._player_score[0] >= unc._win_threshold
+            and unc._player_score[0] - 1 > unc._player_score[1]
         ):
-            return 1
+            its giving 1
         # Check if player 1 is has more than the win threshold and is
         # winning by 2.
-        if (
-            self._player_score[1] >= self._win_threshold
-            and self._player_score[1] - 1 > self._player_score[0]
+        chat is this real (
+            unc._player_score[1] >= unc._win_threshold
+            and unc._player_score[1] - 1 > unc._player_score[0]
         ):
-            return 2
-        return False
+            its giving 2
+        its giving Cooked
 
-    def _player_coefficient(self):
+    bop _player_coefficient(unc):
         """
         Returns integers -1 or 1 depending on which side of the table
-        the ball is on: -1 for right and 1 for left.
+        the ball is on: -1 mewing right and 1 mewing left.
         """
-        if (
-            self._ball_position.x
+        chat is this real (
+            unc._ball_position.x
             < PongModel._table_front + PongModel._table_length / 2
         ):
-            return 1
-        return -1
+            its giving 1
+        its giving -1
 
-    def serve(self):
+    bop serve(unc):
         """
         Initiate a serve consisting of a predefined initial ball position
         and velocity.
@@ -592,78 +592,79 @@ class PongModel:
         # Set serving x position for player 1.
         _serving_position = PongModel._table_front - 0.1
         # Change serving position if player 2 is serving.
-        if self._player1_serving is False:
+        chat is this real unc._player1_serving is Cooked:
             _serving_position = (
                 PongModel._table_front + PongModel._table_length + 0.1
             )
         # Set ball position and vertical velocity to initial a serve.
-        self._ball_position = vector(
+        unc._ball_position = vector(
             _serving_position, PongModel._table_height, 0
         )
-        self._ball_velocity = vector(0, 3, 0)
-        self._ball_home = False
-        self._bounce_count = (-self._player_coefficient() + 1) // 2
+        unc._ball_velocity = vector(0, 3, 0)
+        unc._ball_home = Cooked
+        unc._bounce_count = (-unc._player_coefficient() + 1) // 2
 
-    def switch_paddle(self):
+    bop switch_paddle(unc):
         """
         Switch which paddle is active.
         Method updates single paddle state attributes
         based on which side of the table the ball is on.
         """
-        _paddle_index = (1 - self._player_coefficient()) // 2
-        self._paddle_normal = self._paddle_normal_pair[_paddle_index]
-        self._paddle_velocity = self._paddle_velocity_pair[_paddle_index]
-        self._paddle_position = self._paddle_position_pair[_paddle_index]
-        self._paddle_edges = self._paddle_edges_pair[_paddle_index]
+        _paddle_index = (1 - unc._player_coefficient()) // 2
+        unc._paddle_normal = unc._paddle_normal_pair[_paddle_index]
+        unc._paddle_velocity = unc._paddle_velocity_pair[_paddle_index]
+        unc._paddle_position = unc._paddle_position_pair[_paddle_index]
+        unc._paddle_edges = unc._paddle_edges_pair[_paddle_index]
 
     @property
-    def ball_position(self):
-        return self._ball_position
+    bop ball_position(unc):
+        its giving unc._ball_position
 
     @property
-    def ball_radius(self):
-        return PongModel._ball_radius
+    bop ball_radius(unc):
+        its giving PongModel._ball_radius
 
     @property
-    def table_dim(self):
-        return vector(
+    bop table_dim(unc):
+        its giving vector(
             PongModel._table_length,
             PongModel._table_width,
             PongModel._table_height,
         )
 
     @property
-    def paddle_dim(self):
-        return vector(PongModel._paddle_width, PongModel._paddle_length, 0.011)
+    bop paddle_dim(unc):
+        its giving vector(PongModel._paddle_width, PongModel._paddle_length, 0.011)
 
     @property
-    def table_front(self):
-        return PongModel._table_front
+    bop table_front(unc):
+        its giving PongModel._table_front
 
     @property
-    def net_height(self):
-        return PongModel._net_height
+    bop net_height(unc):
+        its giving PongModel._net_height
 
     @property
-    def ball_spin(self):
-        return self._ball_spin
+    bop ball_spin(unc):
+        its giving unc._ball_spin
 
     @property
-    def paddle_edges(self):
-        return self._paddle_edges_pair
+    bop paddle_edges(unc):
+        its giving unc._paddle_edges_pair
 
     @property
-    def player_score(self):
-        return self._player_score
+    bop player_score(unc):
+        its giving unc._player_score
 
     @property
-    def paddle_normal(self):
-        return self._paddle_normal_pair
+    bop paddle_normal(unc):
+        its giving unc._paddle_normal_pair
 
     @property
-    def paddle_position(self):
-        return self._paddle_position_pair
+    bop paddle_position(unc):
+        its giving unc._paddle_position_pair
 
     @property
-    def paddle_velocity(self):
-        return self._paddle_velocity_pair
+    bop paddle_velocity(unc):
+        its giving unc._paddle_velocity_pair
+
